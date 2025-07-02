@@ -1,6 +1,6 @@
 # Spring-Batch-Observability-With-OpenTelemetry-Collector
 
-## 📘 Introduction
+##  Introduction
 
 This documentation outlines the implementation of **OpenTelemetry (Otel)** within a **Spring Batch** application. The goal is to:
 
@@ -12,14 +12,14 @@ This setup includes application-level configurations and Helm chart updates for 
 
 ---
 
-## ❗ Problem Statement
+##  Problem Statement
 
 The Spring Batch application currently lacks visibility into job performance and system health due to the absence of standardized observability. Without key metrics like read/write counts or job status:
 
 * Monitoring becomes unreliable
 * Debugging is time-consuming
 
-### ✅ Objective
+###  Objective
 
 To integrate OpenTelemetry into the application to export metrics via the OTLP protocol, and visualize them using:
 
@@ -29,7 +29,7 @@ To integrate OpenTelemetry into the application to export metrics via the OTLP p
 
 ---
 
-## 🎯 Goals
+##  Goals
 
 * ✅ Integrate OpenTelemetry with Spring Batch
 * ✅ Use OTLP protocol for metrics
@@ -38,7 +38,7 @@ To integrate OpenTelemetry into the application to export metrics via the OTLP p
 
 ---
 
-## 🧰 Tech Stack
+##  Tech Stack
 
 * Spring Boot (**Spring Batch**)
 * Micrometer (`1.14.5`)
@@ -49,7 +49,7 @@ To integrate OpenTelemetry into the application to export metrics via the OTLP p
 
 ---
 
-## 🏗️ Architecture Flow
+##  Architecture Flow
 
 1. Spring Batch exposes Micrometer metrics via OTLP on **port 4318**
 2. **OpenTelemetry Collector** receives metrics through its OTLP receiver
@@ -66,7 +66,7 @@ To integrate OpenTelemetry into the application to export metrics via the OTLP p
 
 ---
 
-## 🔧 Helm Values Update
+##  Helm Values Update
 
 > Download the helm chart of opentelemetry contrib from opentelemetry source. and make below changes.
 
@@ -74,7 +74,7 @@ To integrate OpenTelemetry into the application to export metrics via the OTLP p
 
 ---
 
-## 📥 OTLP Receiver Configuration
+## OTLP Receiver Configuration
 
 ```yaml
 receivers:
@@ -86,7 +86,7 @@ receivers:
 
 ---
 
-## ⚙️ Processors Configuration
+##  Processors Configuration
 
 ```yaml
 processors:
@@ -104,7 +104,7 @@ processors:
   cumulativetodelta: {}
 ```
 
-### 🧠 Processor Purpose:
+### Processor Purpose:
 
 * `batch`: Bundles metrics for efficient transmission
 * `memory_limiter`: Prevents OOM crashes
@@ -113,7 +113,7 @@ processors:
 
 ---
 
-## 📤 Exporter Configuration
+##  Exporter Configuration
 
 ```yaml
 exporters:
@@ -124,7 +124,7 @@ exporters:
 
 ---
 
-## 🔄 Service Pipeline Configuration
+##  Service Pipeline Configuration
 
 ```yaml
 service:
@@ -138,7 +138,7 @@ service:
 
 ---
 
-## 🔐 Kubernetes IAM Setup
+##  Kubernetes IAM Setup
 
 ### Annotate Kubernetes Service Account:
 
@@ -173,7 +173,7 @@ kubectl annotate serviceaccount \
 
 ---
 
-## 🧱 Spring Boot Setup
+##  Spring Boot Setup
 
 ### Gradle Dependencies:
 
@@ -193,7 +193,7 @@ management.otlp.metrics.export.baseTimeUnit=SECONDS
 
 ---
 
-## 📉 Convert Histogram to Summary Metrics
+##  Convert Histogram to Summary Metrics
 
 ### In `application.properties`:
 
@@ -207,11 +207,11 @@ management.metrics.distribution.percentiles.spring.batch.job=1
 management.metrics.distribution.percentiles.spring.batch.step.active=1
 ```
 
-> ✅ Reason: GMP has limited support for OTLP histograms, so converting to summary ensures compatibility.
+>  Reason: GMP has limited support for OTLP histograms, so converting to summary ensures compatibility.
 
 ---
 
-## 🧾 Kubernetes Metadata Tags
+##  Kubernetes Metadata Tags
 
 ```properties
 management.opentelemetry.resource-attributes.namespace=${NAMESPACE_NAME:default}
@@ -221,7 +221,7 @@ management.metrics.tags.pod=${POD_NAME}
 
 ---
 
-## 🌐 ConfigMap Environment Variables
+##  ConfigMap Environment Variables
 
 ```json
 {
@@ -247,7 +247,7 @@ management.metrics.tags.pod=${POD_NAME}
 ```
 
 
-## 📈 Final Result
+##  Final Result
 
 * OTLP receives metrics on port **4318**
 * Metrics are exported to **Google Managed Prometheus**
