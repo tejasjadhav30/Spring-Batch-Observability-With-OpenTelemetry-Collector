@@ -1,7 +1,5 @@
 # Spring-Batch-Observability-With-OpenTelemetry-Collector
 
-# 📊 Observability Setup with OpenTelemetry in Spring Batch
-
 ## 📘 Introduction
 
 This documentation outlines the implementation of **OpenTelemetry (Otel)** within a **Spring Batch** application. The goal is to:
@@ -197,7 +195,7 @@ management.otlp.metrics.export.baseTimeUnit=SECONDS
 
 ## 📉 Convert Histogram to Summary Metrics
 
-### In `.properties`:
+### In `application.properties`:
 
 ```properties
 management.metrics.distribution.percentiles.hikaricp.connections.creation=1
@@ -248,15 +246,13 @@ management.metrics.tags.pod=${POD_NAME}
 }
 ```
 
----
-
-
-
----
 
 ## 📈 Final Result
 
 * OTLP receives metrics on port **4318**
 * Metrics are exported to **Google Managed Prometheus**
 * **Grafana** visualizes and plots metrics in real-time
+
+## Author
+* Tejas Jadhav 
 
