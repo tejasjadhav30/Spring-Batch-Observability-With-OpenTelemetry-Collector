@@ -31,10 +31,10 @@ To integrate OpenTelemetry into the application to export metrics via the OTLP p
 
 ##  Goals
 
-* ✅ Integrate OpenTelemetry with Spring Batch
-* ✅ Use OTLP protocol for metrics
-* ✅ Export to GMP and Dynatrace
-* ✅ Real-time visualization with Grafana
+* Integrate OpenTelemetry with Spring Batch
+* Use OTLP protocol for metrics
+* Export to GMP and Dynatrace
+* Real-time visualization with Grafana
 
 ---
 
@@ -144,7 +144,7 @@ service:
 
 ```yaml
 annotations:
-  iam.gke.io/gcp-service-account: gcp_service_account@project_id.iam.gserviceaccount.com
+  iam.gke.io/gcp-service-account: gmp-test-sa@PROJECT_ID.iam.gserviceaccount.com
 ```
 
 ### IAM Binding:
